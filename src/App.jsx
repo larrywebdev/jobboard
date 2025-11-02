@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Listing from "./components/jobs/Listing";
 import "./index.css";
 import AppLayout from "./layout/AppLayout";
