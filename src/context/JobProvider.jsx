@@ -18,10 +18,12 @@ export default function JobProvider({ children }) {
           job_requirements: "under_3_years_experience",
         },
         headers: {
-          "x-rapidapi-key": import.meta.env.VITE_RAPIDAPI_KEY,
+          "x-rapidapi-key":
+            "fa8e3da03cmshaa71d28c83592ddp151e09jsnf049b23ccb56",
           "x-rapidapi-host": "jsearch.p.rapidapi.com",
         },
       };
+
       try {
         const response = await axios.request(options);
         const jobsJSON = response.data.data;
