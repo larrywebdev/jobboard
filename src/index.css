@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* letter-spacing: 1px; */
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* flex: 1 1 200px;
+  /* grow, shrink, and min base size */
+/* min-width: 180px; */
+
+
+/* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
