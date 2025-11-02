@@ -12,7 +12,7 @@ export default function JobProvider({ children }) {
         params: {
           query: "developer jobs in nigeria",
           page: "1",
-          num_pages: "50",
+          num_pages: "1",
           country: "ng",
           date_posted: "3days",
           job_requirements: "under_3_years_experience",
