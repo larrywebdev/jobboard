@@ -4,6 +4,9 @@ import { JobContext } from "./JobContext";
 
 export default function JobProvider({ children }) {
   const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const getJSON = async () => {
       const options = {
@@ -28,12 +31,19 @@ export default function JobProvider({ children }) {
         const response = await axios.request(options);
         const jobsJSON = response.data.data;
         setJobs(jobsJSON);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+        setError(err);
+      } finally {
+        setLoading(false);
       }
     };
 
     getJSON();
   }, []);
-  return <JobContext.Provider value={{ jobs }}>{children}</JobContext.Provider>;
+  return (
+    <JobContext.Provider value={{ jobs, loading, error }}>
+      {children}
+    </JobContext.Provider>
+  );
 }

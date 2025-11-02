@@ -8,9 +8,14 @@ import Interpunct from "../Interpunct";
 import NotFound from "../NotFound";
 export default function Listing() {
   const { job_id } = useParams();
-  const { jobs } = useJobs();
-
+  const { jobs, loading, error } = useJobs();
   const job = jobs.find((job) => job.job_id === job_id);
+
+  if (loading) return null;
+  if (error)
+    return (
+      <span className="font-medium text-2xl m-auto">Failed to fetch jobs</span>
+    );
 
   if (!job) return <NotFound>Job Not Found</NotFound>;
   return (
