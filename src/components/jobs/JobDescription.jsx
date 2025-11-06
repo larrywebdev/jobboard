@@ -10,7 +10,7 @@ export default function JobDescription({ description, limit = 1000 }) {
     : description.slice(0, limit) + (description.length > limit ? "..." : "");
 
   return (
-    <div>
+    <>
       <p>{textToShow}</p>
       {description.length > limit && (
         <button
@@ -20,6 +20,6 @@ export default function JobDescription({ description, limit = 1000 }) {
           {showFull ? "Show less" : "Show more"}
         </button>
       )}
-    </div>
+    </>
   );
 }

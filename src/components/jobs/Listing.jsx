@@ -5,7 +5,7 @@ import { useJobs } from "../../context/JobContext";
 import BlueButton from "../Button";
 import JobDescription from "./JobDescription";
 import Interpunct from "../Interpunct";
-import NotFound from "../NotFound";
+import JobNotFound from "../JobNotFound";
 export default function Listing() {
   const { job_id } = useParams();
   const { jobs, loading, error } = useJobs();
@@ -17,14 +17,14 @@ export default function Listing() {
       <span className="font-medium text-2xl m-auto">Failed to fetch jobs</span>
     );
 
-  if (!job) return <NotFound>Job Not Found</NotFound>;
+  if (!job) return <JobNotFound style="w-190">Job Not Found</JobNotFound>;
   return (
     <div className="w-190 h-min mr-5 mt-5 border-2 border-[#f4f3f4] p-7.5 pt-3.5 rounded text-sm">
       <Link
         to="/"
         className="flex items-center gap-0.5 text-blue-600 hover:text-blue-800 hover:underline w-max"
       >
-        <FaArrowLeftLong /> <span>Back to listing</span>
+        <FaArrowLeftLong /> <span>Go back</span>
       </Link>
       <h2 className="font-medium text-2xl mt-5">{job.job_title}</h2>
       <div className="flex gap-1.5 items-center my-3">

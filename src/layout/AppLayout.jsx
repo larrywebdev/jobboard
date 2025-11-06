@@ -1,17 +1,26 @@
-import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
-import Jobs from "../components/jobs/Jobs";
-import { useState } from "react";
-
+import JobNotFound from "../components/JobNotFound";
+import FetchingJobs from "../components/jobs/FetchingJobs";
+import { useJobs } from "../context/JobContext";
+import JobsLayout from "./JobsLayout";
 export default function Layout() {
-  const [filter, setFilter] = useState("");
+  const { filteredJobs, loading, error } = useJobs();
+  if (error)
+    return (
+      <div className="text-center mt-20">
+        <span className="text-2xl font-medium">{error}</span>
+      </div>
+    );
   return (
     <>
-      <Header setFilter={setFilter} />
-      <div className="flex justify-between mb-20">
-        <Jobs filter={filter} setFilter={setFilter} />
-        <Outlet />
-      </div>
+      <Header />
+      {loading ? (
+        <FetchingJobs />
+      ) : filteredJobs.length === 0 ? (
+        <JobNotFound>No Jobs Found</JobNotFound>
+      ) : (
+        <JobsLayout />
+      )}
     </>
   );
 }

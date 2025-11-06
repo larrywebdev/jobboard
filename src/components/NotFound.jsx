@@ -1,16 +1,16 @@
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-export default function NotFound({ children, setFilter }) {
+export default function NotFound() {
   return (
-    <div className="inline items-center mx-auto mt-20">
-      <span className="font-medium text-2xl">{children}</span>
+    <div className="flex flex-col items-center gap-2 mt-30">
+      <span className="font-medium text-3xl">Oops...</span>
+      <span className="font-medium text-2xl">Page Not Found</span>
       <Link
         to="/"
-        className="flex items-center gap-0.5 text-blue-600 hover:text-blue-800 w-max mx-auto mt-2.5"
-        onClick={() => setFilter("")}
+        className="flex items-center gap-0.5 text-blue-600 hover:text-blue-800 hover:underline w-max"
       >
-        <FaArrowLeftLong /> <span>Back to listing</span>
+        <IoHome /> <span>Homepage</span>
       </Link>
     </div>
   );

@@ -7,6 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useJobs } from "../context/JobContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,9 +48,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Header({ setFilter }) {
+export default function Header() {
   const [search, setSearch] = useState("");
-
+  const { setFilter } = useJobs();
   const filterJobs = (e) => {
     setSearch(e.target.value);
   };

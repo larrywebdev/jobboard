@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Listing from "./components/jobs/Listing";
 import "./index.css";
 import AppLayout from "./layout/AppLayout";
+import NotFound from "./components/NotFound";
 function App() {
   return (
     <Router>
@@ -10,7 +11,7 @@ function App() {
         <Route path="/" element={<AppLayout />}>
           <Route path="listing/:job_id" element={<Listing />} />
         </Route>
-        <Route path="*" element={<h1>Page Not Found</h1>}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Analytics />
     </Router>

@@ -1,7 +1,7 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 
-export default function Pagination({ items, itemsPerPage, renderCard }) {
+export default function PaginatedCards({ items, itemsPerPage, renderCard }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
