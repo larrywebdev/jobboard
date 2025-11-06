@@ -1,14 +1,16 @@
 # JobBoard – React Job Listing App
 
-A modern job listing application built with React and Tailwind CSS that allows users to browse, search, and filter jobs fetched from a public API.
+A modern job listing application built with React and Tailwind CSS that allows users to browse, search, and filter jobs.  
+Job data is fetched through a **serverless API route** (using Vercel + RapidAPI) placed inside the `/api` folder.
 
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
+- [Running Locally](#running-locally)
+- [Project Structure](#project-structure)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [API Reference](#api-reference)
+- [API Setup](#api-setup)
 - [Contributing](#contributing)
 - [Author](#author)
 
@@ -32,69 +34,95 @@ cd jobboard
 npm install
 ```
 
-4. Start the development server
+## Running Locally
+
+Instead of running Vite directly, this project uses **Vercel Dev** to run both frontend + backend routes together.
+
+> Install `vercel`:
+>
+> ```bash
+> npm install -g vercel
+> ```
 
 ```bash
-npm run dev
+vercel dev
 ```
 
-## Usage
+Then open the app:
 
-After running `npm run dev`, open your browser at `http://localhost:5173`.
-Use the search bar to find jobs by title. Click on "View Details" to see more about the job.
+```
+http://localhost:3000
+```
+
+## Project Structure
+
+```
+jobboard/
+|– api/
+|   |– searchJobs.js        # Serverless API route to call RapidAPI
+|
+|– public/
+|
+|– src/
+|   |– assets/
+|   |– components/
+|   |– context/
+|   |– layout/
+|   |– App.jsx
+|   |– index.css
+|   |– main.jsx
+|
+|– package.json
+|– vite.config.js
+|– .env        # Contains API key (not committed)
+```
 
 ## Features
 
-- 🔍 Job search with filters
-- 🧭 Detailed job view
+- 🔍 Search jobs by title
+- 🧭 View job details
 
 ## Tech Stack
 
-- React
-- Tailwind CSS
-- Axios
-- Vite
+| Layer        | Technology                                  |
+| ------------ | ------------------------------------------- |
+| Frontend     | React + Tailwind CSS + Axios + Vite         |
+| Backend      | Vercel Serverless Functions (`/api` folder) |
+| External API | JSearch API (via RapidAPI)                  |
 
-## API Reference
+## API Setup
 
-This project uses the **JSearch** API (via RapidAPI) to fetch job listings and job details.
-
-**Base URL:**
-
-```
-https://jsearch.p.rapidapi.com
-```
-
-| Endpoint  | Method | Description                       |
-| --------- | ------ | --------------------------------- |
-| `/search` | GET    | Search for jobs using a job title |
-
-### Example Request – Search for Jobs
+You no longer call RapidAPI directly from the frontend.  
+All requests go through:
 
 ```
-GET https://jsearch.p.rapidapi.com/search?query=frontend%20developer&page=1
+GET /api/jobs?query=frontend developer
 ```
 
-### Required Headers
+### Example Frontend Call
 
-```json
-{
-  "X-RapidAPI-Key": YOUR_API_KEY,
-  "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
-}
+```js
+const res = await fetch(`/api/jobs?query=${searchTerm}`);
+const data = await res.json();
+```
+
+### Backend Route (`/api/jobs.js`)
+
+This route forwards the request to RapidAPI using your secret key stored in `.env`.
+
+```
+RAPIDAPI_KEY=your_api_key_here
 ```
 
 ## Contributing
 
-Contributions are welcome!
-
 1. Fork the repository
-2. Create a new branch (`git checkout -b feature-branch`)
-3. Commit your changes (`git commit -m "Add new feature"`)
-4. Push to the branch (`git push origin feature-branch`)
-5. Open a pull request
-
-## Author
-
-**Omozojie Lawrence**  
-GitHub: https://github.com/larrywebdev
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-branch
+   ```
+3. Make changes and commit:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to your branch and open a Pull Request
