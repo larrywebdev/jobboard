@@ -7,11 +7,9 @@ export default async function handler(req, res) {
     const response = await axios.get("https://jsearch.p.rapidapi.com/search", {
       params: {
         query,
-        page: "1",
-        num_pages: "1",
+        num_pages: "50",
         country: "ng",
-        date_posted: "3days",
-        job_requirements: "under_3_years_experience",
+        date_posted: "week",
       },
       headers: {
         "x-rapidapi-key": process.env.RAPIDAPI_KEY,

@@ -5,9 +5,10 @@ import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import _ from "lodash";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { useJobs } from "../context/JobContext";
+import { useJobStore } from "../store/jobStore";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,32 +50,41 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [search, setSearch] = useState("");
-  const { setFilter } = useJobs();
-  const filterJobs = (e) => {
-    setSearch(e.target.value);
+  const { setFilter } = useJobStore((state) => state);
+  const [value, setValue] = useState("");
+  const debouncedSearch = useMemo(
+    () => _.debounce((value) => setFilter(value), 300),
+    [setFilter],
+  );
+  useEffect(() => {
+    return () => debouncedSearch.cancel();
+  }, [debouncedSearch]);
+  const handleChange = (e) => {
+    const val = e.target.value;
+    setValue(val);
+    debouncedSearch(val);
   };
-  const handleSearchSubmit = (e) => {
-    if (e.key === "Enter") {
-      setFilter(search);
-    }
-  };
-
   return (
     <header>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
           position="static"
-          sx={{ backgroundColor: "white", color: "black" }}
+          elevation={0}
+          sx={{ backgroundColor: "gray", color: "black" }}
         >
           <Toolbar>
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", sm: "block" },
+                fontSize: "25px",
+                fontWeight: "600",
+              }}
             >
-              <Link to="/">JobBoard</Link>
+              <Link to="/">DevHire</Link>
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -83,9 +93,8 @@ export default function Header() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
-                onChange={filterJobs}
-                onKeyDown={handleSearchSubmit}
-                value={search}
+                onChange={handleChange}
+                value={value}
               />
             </Search>
           </Toolbar>

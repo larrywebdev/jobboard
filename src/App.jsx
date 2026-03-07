@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<AppLayout />}>
           <Route path="listing/:job_id" element={<Listing />} />
         </Route>
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Analytics />
     </Router>

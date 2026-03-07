@@ -1,22 +1,17 @@
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { useJobs } from "../context/JobContext";
+import { useNavigate } from "react-router-dom";
+
 export default function JobNotFound({ children, style }) {
-  const { setFilter } = useJobs();
   const navigate = useNavigate();
-  const handleClick = () => {
-    setFilter("");
-    navigate(-1);
-  };
+
   return (
-    <div className={`flex flex-col items-center mt-20 ${style}`}>
+    <div className={`flex flex-col gap-5 items-center mt-20 ${style}`}>
       <span className="font-medium text-2xl">{children}</span>
-      <Link
-        className="flex items-center gap-0.5 text-blue-600 hover:text-blue-800 w-max mx-auto mt-2.5"
-        onClick={handleClick}
+      <button
+        className="bg-black text-white text-sm font-bold py-3 rounded-full px-5"
+        onClick={() => navigate(-1)}
       >
-        <FaArrowLeftLong /> <span>Go back</span>
-      </Link>
+        Back
+      </button>
     </div>
   );
 }

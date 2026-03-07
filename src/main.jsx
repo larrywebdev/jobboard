@@ -1,12 +1,21 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.jsx";
-import JobProvider from "./context/JobProvider.jsx";
+import "./index.css";
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+    },
+  },
+});
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <JobProvider>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </JobProvider>
-  </StrictMode>
+    </QueryClientProvider>
+  </StrictMode>,
 );

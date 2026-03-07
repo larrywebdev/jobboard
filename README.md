@@ -1,7 +1,19 @@
-# JobBoard – React Job Listing App
+# DevHire
 
-A modern job listing application built with React and Tailwind CSS that allows users to browse, search, and filter jobs.  
+A modern job listing application built with React and Tailwind CSS that allows users to browse and filter jobs.  
 Job data is fetched through a **serverless API route** (using Vercel + RapidAPI) placed inside the `/api` folder.
+
+---
+
+## Live Demo
+
+Deployed on Vercel.
+
+[Live Demo](https://jobboard-roan.vercel.app/)
+
+[![Job Board Demo](https://res.cloudinary.com/dh4gfd8ey/video/upload/v1772839946/2026-03-07_00-30-51_bh0pkk.gif)](https://res.cloudinary.com/dh4gfd8ey/video/upload/v1772839946/2026-03-07_00-30-51_bh0pkk.mp4)
+
+---
 
 ## Table of Contents
 
@@ -12,7 +24,6 @@ Job data is fetched through a **serverless API route** (using Vercel + RapidAPI)
 - [Tech Stack](#tech-stack)
 - [API Setup](#api-setup)
 - [Contributing](#contributing)
-- [Author](#author)
 
 ## Installation
 
@@ -58,28 +69,23 @@ http://localhost:3000
 
 ```
 jobboard/
-|– api/
-|   |– searchJobs.js        # Serverless API route to call RapidAPI
+|– api/     # Serverless API route to call RapidAPI
 |
 |– public/
 |
 |– src/
 |   |– assets/
 |   |– components/
-|   |– context/
+|   |– hooks/
 |   |– layout/
 |   |– App.jsx
 |   |– index.css
 |   |– main.jsx
-|
-|– package.json
-|– vite.config.js
-|– .env        # Contains API key (not committed)
 ```
 
 ## Features
 
-- 🔍 Search jobs by title
+- 🔍 Filter jobs by title
 - 🧭 View job details
 
 ## Tech Stack
@@ -96,17 +102,17 @@ You no longer call RapidAPI directly from the frontend.
 All requests go through:
 
 ```
-GET /api/jobs?query=frontend developer
+GET /api/jobs?query=developer jobs in nigeria
 ```
 
 ### Example Frontend Call
 
 ```js
-const res = await fetch(`/api/jobs?query=${searchTerm}`);
+const res = await fetch(`/api/searchJobs?query=${searchTerm}`);
 const data = await res.json();
 ```
 
-### Backend Route (`/api/jobs.js`)
+### Backend Route (`/api/searchJobs.js`)
 
 This route forwards the request to RapidAPI using your secret key stored in `.env`.
 
