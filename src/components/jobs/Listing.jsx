@@ -25,7 +25,7 @@ export default function Listing() {
       <JobNotFound style="w-190">This Job Is No Longer Available</JobNotFound>
     );
   return (
-    <div className="flex flex-col w-full lg:w-165 xl:w-200 2xl:w-300 sm:mt-5 sm:border-2 sm:border-gray-400 p-4 rounded-3xl text-sm sm:sticky sm:top-3 sm:h-[calc(100vh-25px)] sm:overflow-auto">
+    <div className="flex flex-col w-full lg:w-165 xl:w-200 2xl:w-300 sm:mt-5 sm:border-2 sm:border-gray-400 p-4 rounded-3xl text-sm sm:sticky sm:top-3 sm:h-[calc(100vh-25px)] sm:max-h-137.5 sm:overflow-auto">
       <button
         className="bg-black/80 py-3 px-7 text-white text-sm font-bold rounded-full sm:hidden self-start"
         onClick={() => navigate(-1)}
@@ -106,7 +106,7 @@ export default function Listing() {
             ),
             strong: ({ children }) => (
               <strong className="font-semibold text-gray-900">
-                {normalizeJobDescription(children)}
+                {children}
               </strong>
             ),
           }}
