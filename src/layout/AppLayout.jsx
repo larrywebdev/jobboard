@@ -19,7 +19,7 @@ export default function Layout() {
   if (error) {
     return (
       <div className="text-center mt-20">
-        <span className="text-2xl font-medium">{error}</span>
+        <span className="text-2xl font-medium">{error.message}</span>
       </div>
     );
   }
